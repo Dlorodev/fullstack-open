@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-const Statistics = ({ text, value }) => {
+const Statistics = ({ text, value, unit }) => {
   return (
     <>
       <p>
-        {text} {value}
+        {text} {value} {unit}
       </p>
     </>
   );
