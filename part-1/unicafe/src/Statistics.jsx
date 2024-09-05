@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
+
 const Statistics = ({ text, value, unit }) => {
+
+
   return (
     <>
       <p>

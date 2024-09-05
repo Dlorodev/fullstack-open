@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Header from './Header';
 import Button from './Button';
 import Statistics from './Statistics';
+import Total from './Total';
 
 function App() {
   const [good, setGood] = useState(0);
@@ -41,6 +42,7 @@ function App() {
     setPositive(good / (good + neutral + updatedBad) * 100);
   };
 
+
   return (
     <>
       <Header text="give feedback" />
@@ -48,12 +50,7 @@ function App() {
       <Button text="neutral" onClick={handleNeutral} />
       <Button text="bad" onClick={handleBad} />
       <Header text="statistics" />
-      <Statistics text="good" value={good} />
-      <Statistics text="neutral" value={neutral} />
-      <Statistics text="bad" value={bad} />
-      <Statistics text="all" value={all} />
-      <Statistics text="average" value={average} />
-      <Statistics text="positive" value={positive} unit="%" />
+      <Total good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />
     </>
   );
 }
