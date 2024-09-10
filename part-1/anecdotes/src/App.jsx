@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Button from './Button';
+import Header from './Header';
 
 function App() {
   const anecdotes = [
@@ -17,6 +18,7 @@ function App() {
   const initialVotes = [0, 0, 0, 0, 0, 0, 0, 0];
   const [votes, setVotes] = useState(initialVotes);
   console.log('Inicial->', votes);
+  const [mostVoted, setMostVoted] = useState(null);
 
   const handleAnecdote = () => {
     const updatedAnecdote = Math.round(Math.random() * (anecdotes.length - 1));
@@ -27,14 +29,26 @@ function App() {
     const newVotes = [...votes];
     newVotes[selected] += 1;
     setVotes(newVotes);
+    console.log('Final->', votes);
+    const maxVote = newVotes.indexOf(Math.max(...newVotes));
+    console.log(maxVote);
+    setMostVoted(maxVote);
   };
 
   return (
     <>
-      <p>{anecdotes[selected]}</p>
-      <p>has {votes[selected]} votes</p>
-      <Button onClick={handleVotes} text="vote" />
-      <Button onClick={handleAnecdote} text="next anecdote" />
+      <div>
+        <Header text="Anecdote of the day" />
+        <p>{anecdotes[selected]}</p>
+        <p>has {votes[selected]} votes</p>
+        <Button onClick={handleVotes} text="vote" />
+        <Button onClick={handleAnecdote} text="next anecdote" />
+      </div>
+      <div>
+        <Header text="Anecdote with the most votes" />
+        <p>{anecdotes[mostVoted]}</p>
+        <p>has {votes[mostVoted]} votes</p>
+      </div>
     </>
   );
 }
