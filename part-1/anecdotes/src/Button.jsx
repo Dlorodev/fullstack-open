@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 
-const Button = ({onClick}) => {
+const Button = ({onClick, text}) => {
   return (
     <>
-    <button onClick={onClick}>next anecdote</button>
+    <button onClick={onClick}>{text}</button>
     </>
   )
 }
