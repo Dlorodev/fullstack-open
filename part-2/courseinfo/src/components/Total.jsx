@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
 
-const Total = (props) => {
-    console.log(props);
-    
+const Total = ({ course }) => {
+  console.log(course);
+
   return (
     <div>
-      <p>
-        Number of exercises{' '}
-        {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}
-      </p>
+      <strong>
+        <p>
+          total of{' '}
+          {course.parts[0].exercises +
+            course.parts[1].exercises +
+            course.parts[2].exercises}{' '}
+          exercises
+        </p>
+      </strong>
     </div>
   );
 };
