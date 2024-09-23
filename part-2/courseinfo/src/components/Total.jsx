@@ -1,18 +1,12 @@
 /* eslint-disable react/prop-types */
 
 const Total = ({ course }) => {
-  console.log(course);
+  const total = course.parts.reduce((total, part) => total + part.exercises, 0);
 
   return (
     <div>
       <strong>
-        <p>
-          total of{' '}
-          {course.parts[0].exercises +
-            course.parts[1].exercises +
-            course.parts[2].exercises}{' '}
-          exercises
-        </p>
+        <p>total of {total} exercises</p>
       </strong>
     </div>
   );
