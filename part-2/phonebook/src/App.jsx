@@ -10,7 +10,6 @@ function App() {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [newFilter, setNewFilter] = useState('');
-  //const [searchPerson, setSearchPerson] = useState('');
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -49,19 +48,6 @@ function App() {
   const filteredContacts = persons.filter((person) =>
     person.name.toLowerCase().includes(newFilter.toLowerCase())
   );
-
-  /*const handleSearchPerson = (event) => {
-    console.log(event.target.value);
-    setSearchPerson(event.target.value);
-
-    const value = event.target.value;
-    const lowerCaseValue = value.toLowerCase();
-    const filtered = persons.filter((person) =>
-      person.name.toLowerCase().includes(lowerCaseValue)
-    );
-
-    setFilteredPersons(filtered);
-  };*/
 
   return (
     <>
