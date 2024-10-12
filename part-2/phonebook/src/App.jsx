@@ -12,6 +12,8 @@ function App() {
 
   useEffect(() => {
     axios.get('http://localhost:3001/persons').then((response) => {
+      //console.log('Promise fulfilled');
+      //console.log(response.data);
       setPersons(response.data);
     });
   }, []);
@@ -22,19 +24,24 @@ function App() {
     const personObject = {
       name: newName,
       number: newNumber,
-      id:
+      /*id:
         persons.length > 0
           ? Math.max(...persons.map((person) => person.id)) + 1
-          : 1,
+          : 1,*/
     };
 
     const same = persons.some(
       (person) => person.name.toLowerCase() === newName.toLowerCase()
     );
     if (!same) {
-      setPersons(persons.concat(personObject));
-      setNewName('');
-      setNewNumber('');
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then((response) => {
+          console.log(response);
+          setPersons(persons.concat(response.data));
+          setNewName('');
+          setNewNumber('');
+        });
     } else {
       alert(`${newName} is already added to the phonebook`);
     }
