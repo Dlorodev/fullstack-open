@@ -27,18 +27,31 @@ function App() {
           ? Math.max(...persons.map((person) => person.id)) + 1
           : 1,*/
     };
-
     const same = persons.some(
       (person) => person.name.toLowerCase() === newName.toLowerCase()
     );
-    if (!same) {
+
+    if (same) {
+      const actualPerson = persons.find((p) => p.name === newName);
+      const confirm = window.confirm(
+        `${actualPerson.name} is already in your phonebook, replace old number with a new one?`
+      );
+      if (confirm) {
+        personService
+          .updatePerson(actualPerson.id, personObject)
+          .then((response) => {
+            //console.log('Contact updated!!', response.data);
+            setPersons(
+              persons.map((p) => (p.id !== actualPerson.id ? p : response.data))
+            );
+          });
+      }
+    } else {
       personService.createPerson(personObject).then((response) => {
         setPersons(persons.concat(response));
         setNewName('');
         setNewNumber('');
       });
-    } else {
-      alert(`${newName} is already added to the phonebook`);
     }
   };
 
@@ -56,16 +69,18 @@ function App() {
     setNewFilter(event.target.value);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (person) => {
     const confirm = window.confirm(
-      'do you really want to delete this contact?'
+      `do you really want to delete ${person.name}?`
     );
     if (confirm) {
       personService
-        .deletePerson(id)
+        .deletePerson(person.id)
         .then((/*response*/) => {
           //console.log('Contact deleted!', response.data);
-          setPersons(filteredContacts.filter((contact) => contact.id !== id));
+          setPersons(
+            filteredContacts.filter((contact) => contact.id !== person.id)
+          );
         })
         .catch((error) => console.error('Error deleting the contact', error));
     }
