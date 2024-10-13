@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 
-const Persons = ({ contacts }) => {
+const Persons = ({ contacts, handleDelete }) => {
   return (
     <>
       {contacts.length > 0 ? (
         contacts.map((person) => (
-          <p key={person.name}>
+          <p key={person.id}>
             {person.name} {person.number}
+            <button onClick={() => handleDelete(person.id)}>delete</button>
           </p>
         ))
       ) : (

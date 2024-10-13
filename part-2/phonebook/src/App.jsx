@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
-import axios from 'axios';
 import personService from './services/personService';
 
 function App() {
@@ -57,6 +56,21 @@ function App() {
     setNewFilter(event.target.value);
   };
 
+  const handleDelete = (id) => {
+    const confirm = window.confirm(
+      'do you really want to delete this contact?'
+    );
+    if (confirm) {
+      personService
+        .deletePerson(id)
+        .then((/*response*/) => {
+          //console.log('Contact deleted!', response.data);
+          setPersons(filteredContacts.filter((contact) => contact.id !== id));
+        })
+        .catch((error) => console.error('Error deleting the contact', error));
+    }
+  };
+
   const filteredContacts = persons.filter((person) =>
     person.name.toLowerCase().includes(newFilter.toLowerCase())
   );
@@ -74,7 +88,7 @@ function App() {
         numberOnChange={handleNewNumber}
       />
       <h3>Numbers</h3>
-      <Persons contacts={filteredContacts} />
+      <Persons contacts={filteredContacts} handleDelete={handleDelete} />
     </>
   );
 }
