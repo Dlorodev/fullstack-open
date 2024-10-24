@@ -4,6 +4,7 @@ import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import personService from './services/personService';
 import Notification from './components/Notification';
+import FailMessage from './components/FailMessage';
 
 function App() {
   const [persons, setPersons] = useState([]);
@@ -11,6 +12,7 @@ function App() {
   const [newNumber, setNewNumber] = useState('');
   const [newFilter, setNewFilter] = useState('');
   const [successMessage, setSuccessMessage] = useState(null);
+  const [failMessage, setFailMessage] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((initialResponse) => {
@@ -46,6 +48,15 @@ function App() {
             setPersons(
               persons.map((p) => (p.id !== actualPerson.id ? p : response.data))
             );
+          })
+          .catch((error) => {
+            console.log('Ocurrio un error: ', error);
+            setFailMessage(
+              `Information of ${actualPerson.name} has already been removed from server!`
+            );
+            setTimeout(() => {
+              setFailMessage(null);
+            }, 4000);
           });
       }
     } else {
@@ -56,7 +67,7 @@ function App() {
         setSuccessMessage(`Added ${response.name}!`);
         setTimeout(() => {
           setSuccessMessage(null);
-        }, 3000);
+        }, 4000);
       });
     }
   };
@@ -100,6 +111,7 @@ function App() {
     <>
       <h2>Phonebook</h2>
       <Notification message={successMessage} />
+      <FailMessage message={failMessage} />
       <Filter value={newFilter} onChange={handleNewFilter} />
       <h3>Add a new</h3>
       <PersonForm
