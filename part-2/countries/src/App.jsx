@@ -8,6 +8,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [filter, setFilter] = useState('');
   const [filteredCountries, setFilteredCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     countrieService.getAll().then((initialResponse) => {
@@ -27,10 +28,19 @@ function App() {
     setFilteredCountries(result);
   };
 
+  const handleShowCountry = (country) => {
+    setSelectedCountry(country);
+    console.log(country);
+  };
+
   return (
     <>
       <FilterCountrie value={filter} countrieOnChange={handleFilter} />
-      <Countries countries={filteredCountries} />
+      <Countries
+        countries={filteredCountries}
+        selectedCountry={selectedCountry}
+        onShowCountry={handleShowCountry}
+      />
     </>
   );
 }
