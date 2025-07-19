@@ -15,6 +15,8 @@ function App() {
       setCountries(initialResponse);
       console.log('Effect!!');
     });
+
+    //countrieService.getWeather(15.5, -90.25).then((res) => console.log(res.data.main ));
   }, []);
 
   const handleFilter = (event) => {
@@ -33,9 +35,17 @@ function App() {
     console.log(country);
   };
 
+  const handleReset = () => {
+    setSelectedCountry(null);
+  };
+
   return (
     <>
-      <FilterCountrie value={filter} countrieOnChange={handleFilter} />
+      <FilterCountrie
+        value={filter}
+        countrieOnChange={handleFilter}
+        reset={handleReset}
+      />
       <Countries
         countries={filteredCountries}
         selectedCountry={selectedCountry}

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import Weather from './Weather';
 
 const Countries = ({ countries, onShowCountry, selectedCountry }) => {
   const renderCountryDetail = (country) => {
@@ -14,6 +15,11 @@ const Countries = ({ countries, onShowCountry, selectedCountry }) => {
           ))}
         </ul>
         <img src={country.flags.png} />
+        <Weather
+          lat={country.latlng[0]}
+          long={country.latlng[1]}
+          capital={country.capital}
+        />
       </div>
     );
   };
