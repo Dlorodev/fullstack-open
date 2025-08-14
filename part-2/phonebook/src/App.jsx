@@ -61,15 +61,24 @@ function App() {
           });
       }
     } else {
-      personService.createPerson(personObject).then((response) => {
-        setPersons(persons.concat(response));
-        setNewName('');
-        setNewNumber('');
-        setSuccessMessage(`Added ${response.name}!`);
-        setTimeout(() => {
-          setSuccessMessage(null);
-        }, 4000);
-      });
+      personService
+        .createPerson(personObject)
+        .then((response) => {
+          setPersons(persons.concat(response));
+          setNewName('');
+          setNewNumber('');
+          setSuccessMessage(`Added ${response.name}!`);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 4000);
+        })
+        .catch((error) => {
+          //console.log(error.response.data.error)
+          setFailMessage(error.response.data.error);
+          setTimeout(() => {
+            setFailMessage(null);
+          }, 4000);
+        });
     }
   };
 

@@ -4,7 +4,7 @@ const FailMessage = ({ message }) => {
     return null;
   }
 
-  return <div className="fail">{message}</div>;
+  return <div className="error">{message}</div>;
 };
 
 export default FailMessage;
