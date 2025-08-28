@@ -2,6 +2,7 @@ const { test, describe } = require('node:test')
 const assert = require('node:assert')
 const listHelper = require('../utils/list_helper')
 
+
 const listWithOneBlog = [
     {
         _id: '5a422aa71b54a676234d17f8',
@@ -146,3 +147,23 @@ describe('most important blogger', () => {
     })
 })
 
+describe('most likes', () => {
+
+    test('return the blog with most likes', () => {
+        const result = listHelper.mostLikes(blogs)
+        console.log('most likes result for a list', result)
+        assert.deepStrictEqual(result, { author: 'Sam H. Altman', likes: 12 })
+    })
+
+    test('when the list has only one blog', () => {
+        const result = listHelper.mostLikes(listWithOneBlog)
+        console.log('most likes result for one entry list', result)
+        assert.deepStrictEqual(result, { author: 'Edsger W. Dijkstra', likes: 5 })
+    })
+
+    test('When the list is empty, returns an empty object', () => {
+        const result = listHelper.mostLikes(emptyList)
+        console.log('most likes result for empty list', result)
+        assert.deepStrictEqual(result, {})
+    })
+})

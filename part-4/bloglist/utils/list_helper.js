@@ -36,17 +36,30 @@ const mostBlogs = (blogsList) => {
   }
   
   const maxBlog = _.maxBy(blogsList, blog => {
-    const fav = blog.blogs;
-    return fav;
-  });
-  const { author, blogs } = maxBlog;
+    const fav = blog.blogs
+    return fav
+  })
+  const { author, blogs } = maxBlog
 
   return {author, blogs}
-};
+}
+
+const mostLikes = (blogsList) => {
+  if(blogsList.length === 0){
+    return {}
+  }
+
+  const maxLikes = _.maxBy(blogsList, blog => {
+    return blog.likes
+  }) 
+  const {author, likes} = maxLikes
+  return {author, likes}
+}
 
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
